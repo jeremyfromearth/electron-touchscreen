@@ -20,5 +20,5 @@ app.on('ready', ()=> {
     slashes: true,
   });
 
-  win = new TouchscreenWindow({url: demo_url, showCursor: true});
+  win = new TouchscreenWindow({url: demo_url});
 });

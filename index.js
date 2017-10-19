@@ -83,6 +83,7 @@ class TouchscreenWindow extends BrowserWindow {
    */
   toggle_cursor_visibility() {
     this.options.showCursor = !this.options.showCursor;
+    console.log('setting cursor to:', this.options.showCursor);
     this.webContents.send('set-cursor-visibility', this.options.showCursor);
   }
 };
