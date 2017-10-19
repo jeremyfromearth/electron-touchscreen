@@ -1,0 +1,27 @@
+{
+  "name": "electron-touchscreen",
+  "version": "0.0.1",
+  "description": "Boilerplate for touchscreen or kiosk apps built with Electron Edit",
+  "main": "src/main.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/future-projects/electron-touchscreen.git"
+  },
+  "keywords": [
+    "electron",
+    "kiosk",
+    "touchscreen",
+    "exhibit",
+    "fullscreen"
+  ],
+  "author": "@jeremyfromearth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/future-projects/electron-touchscreen/issues"
+  },
+  "homepage": "https://github.com/future-projects/electron-touchscreen#readme",
+  "dependencies": {
+    "electron": "^1.7.9"
+  }
+}
