@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <style>
+      body {
+        color: white;
+        font-family: monospace;
+      }
+      pre {
+	background-color: #222222;
+        margin: 1em;
+        padding: 1em;
+        border-radius: 1em;
+      }	
+    </style>
+  </head>
+  <body>
+    <h1>Welcome the the electron-touchscreen demo</h1>
+    <p>Use the following key commands</p>
+    <ul>
+      <li>CMD+K (macOS) or CTRL+K (Windows): Toggle fullscreen mode</li>
+      <li>CMD+C (macOS) or CTRL+C (Windows): Toggle cursor visibility</li>
+      <li>CMD+Q (macOS) or CTRL+Q (Windows): Quit the application</li>
+    </ul>
+    <p>Source code for this app:</p>
+    <pre>
+	// nodejs
+	const path = require('path');
+	const url = require('url');
+
+	// npm
+	const electron = require('electron');
+
+	// electron-touchscreen
+	const TouchscreenWindow = require('../index.js');
+
+	// vars
+	let win = null;
+	const app = electron.app;
+
+	// application event handlers
+	app.on('ready', ()=> {
+	  const demo_url = url.format({
+	    pathname: path.join(__dirname, 'index.html'),
+	    protocol: 'file', 
+	    slashes: true,
+	  });
+
+	  win = new TouchscreenWindow({url: demo_url});
+	});
+    </pre>
+    <p>This project is created and maintained by Future Projects</p>
+    <p>We build software for immersive spaces including museums, universities and other cultural instituitions. Check out our work at <a href='http://futureprojects.io'>Future Projects</a></p>
+  </body>
+</html>
