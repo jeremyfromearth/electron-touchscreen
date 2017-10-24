@@ -28,9 +28,9 @@ const defaults = {
   autoHideMenuBar: true
 };
 
-// Some functionality, such as hiding the cursor is best acheived by interacting with the DOM.
-// This is taken care of in a file called touchscreen.js that is dynamically loaded into each page.
-// We load that file here and save it's contents as a string, to later inject.
+// Some functionality, such as hiding the cursor is best acheived by interacting with the DOM or Chromium.
+// This is taken care of in a file called touchscreen.js that is dynamically injected into each page.
+// We load that file here and save it's contents as a string, for later injection.
 let scripts = '';
 const filename = path.join(__dirname, 'touchscreen.js');
 fs.readFile(filename, 'utf8', (error, data)=> {
@@ -54,7 +54,7 @@ class TouchscreenWindow extends BrowserWindow {
     // Don't allow zooming
     this.webContents.setVisualZoomLevelLimits(1, 1)
 
-    // This is where we inject the page with the scripts from above
+    // Inject the script from above
     this.webContents.on('dom-ready', (event)=> {
       this.webContents.executeJavaScript(scripts); 
       if(this.first_load && !this.options.showCursor) {
@@ -63,22 +63,15 @@ class TouchscreenWindow extends BrowserWindow {
       }
     });
 
+    // Need to set this if we start not in kiosk mode
+    if(!this.isKiosk()) this.setAlwaysOnTop(false);
+
     // Load the first URL if there is one
     if(options.url) this.loadURL(options.url);
 
     // Set up typical kiosk shortcuts
-    globalShortcut.register('CommandOrControl+K', this.toggle_kiosk_mode.bind(this));
-    globalShortcut.register('CommandOrControl+C', this.toggle_cursor_visibility.bind(this));
-  }
-
-  /**
-   * Toggles kiosk mode
-   */
-  toggle_kiosk_mode() {
-    const kiosk = !this.isKiosk();
-    this.setKiosk(kiosk);
-    this.setAlwaysOnTop(kiosk, 'floating');
-    if(!kiosk && !this.options.showCursor) this.toggle_cursor_visibility();
+    globalShortcut.register('CommandOrControl+K', ()=>{this.setKiosk(!this.isKiosk())});
+    globalShortcut.register('CommandOrControl+C', ()=>{this.set_cursor(!this.options.showCursor)});
   }
 
   /**
@@ -87,6 +80,25 @@ class TouchscreenWindow extends BrowserWindow {
   toggle_cursor_visibility() {
     this.options.showCursor = !this.options.showCursor;
     console.log('setting cursor to:', this.options.showCursor);
+    this.webContents.send('set-cursor-visibility', this.options.showCursor);
+  }
+
+  /**
+   * Override 
+   * Sets whether or not this window is in kiosk mode
+   * Note: Setting the window to kiosk mode automatically hides the cursor
+   */
+  setKiosk(value) {
+    super.setKiosk(value);
+    this.set_cursor(!value); 
+    this.setAlwaysOnTop(value, 'floating');
+  }
+
+  /**
+   * Sets whether or not to show the cursor
+   */ 
+  set_cursor(value) {
+    this.options.showCursor = value;
     this.webContents.send('set-cursor-visibility', this.options.showCursor);
   }
 };
