@@ -21,7 +21,7 @@ const defaults = {
   kiosk: true,
   showCursor: false,
   alwaysOnTop: true,
-  simpleFullscreen: true,
+  simpleFullscreen: false,
   title: "Electron Touchscreen",
   acceptFirstMouse: true,
   backgroundColor: '#000000',
@@ -70,8 +70,17 @@ class TouchscreenWindow extends BrowserWindow {
     if(options.url) this.loadURL(options.url);
 
     // Set up typical kiosk shortcuts
-    globalShortcut.register('CommandOrControl+K', ()=>{this.setKiosk(!this.isKiosk())});
-    globalShortcut.register('CommandOrControl+C', ()=>{this.set_cursor(!this.options.showCursor)});
+    globalShortcut.register('CommandOrControl+K', ()=>{
+      if(this.isFocused()) {
+        this.setKiosk(!this.isKiosk())
+      }
+    });
+
+    globalShortcut.register('CommandOrControl+C', ()=>{
+      if(this.isFocused()) {
+        this.set_cursor(!this.options.showCursor)
+      }
+    });
   }
 
   /**
