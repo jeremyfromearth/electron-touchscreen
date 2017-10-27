@@ -51,9 +51,6 @@ class TouchscreenWindow extends BrowserWindow {
     this.first_load = true;
     this.options = options;
 
-    // Don't allow zooming
-    this.webContents.setVisualZoomLevelLimits(1, 1)
-
     // Inject the script from above
     this.webContents.on('dom-ready', (event)=> {
       this.webContents.executeJavaScript(scripts); 
