@@ -28,6 +28,8 @@ const defaults = {
   autoHideMenuBar: true
 };
 
+
+
 // Some functionality, such as hiding the cursor is best acheived by interacting with the DOM or Chromium.
 // This is taken care of in a file called touchscreen.js that is dynamically injected into each page.
 // We load that file here and save it's contents as a string, for later injection.
@@ -66,27 +68,14 @@ class TouchscreenWindow extends BrowserWindow {
     // Load the first URL if there is one
     if(options.url) this.loadURL(options.url);
 
-    // Set up typical kiosk shortcuts
-    globalShortcut.register('CommandOrControl+K', ()=>{
-      if(this.isFocused()) {
-        this.setKiosk(!this.isKiosk())
-      }
+    // Set up handlers to add and remove shortcuts on focus and blur
+    this.on('focus', (event)=> {
+      this.register_shortcuts();
     });
 
-    globalShortcut.register('CommandOrControl+C', ()=>{
-      if(this.isFocused()) {
-        this.set_cursor(!this.options.showCursor)
-      }
+    this.on('blur', (event)=> {
+      this.unregister_shortcuts();
     });
-  }
-
-  /**
-   * Toggles cursor visibility 
-   */
-  toggle_cursor_visibility() {
-    this.options.showCursor = !this.options.showCursor;
-    console.log('setting cursor to:', this.options.showCursor);
-    this.webContents.send('set-cursor-visibility', this.options.showCursor);
   }
 
   /**
@@ -106,6 +95,25 @@ class TouchscreenWindow extends BrowserWindow {
   set_cursor(value) {
     this.options.showCursor = value;
     this.webContents.send('set-cursor-visibility', this.options.showCursor);
+  }
+
+  register_shortcuts() {
+    globalShortcut.register('CommandOrControl+K', ()=>{
+      if(this.isFocused()) {
+        this.setKiosk(!this.isKiosk())
+      }
+    });
+
+    globalShortcut.register('CommandOrControl+C', ()=>{
+      if(this.isFocused()) {
+        this.set_cursor(!this.options.showCursor)
+      }
+    });
+  }
+
+  unregister_shortcuts() {
+    globalShortcut.unregister('CommandOrControl+K');
+    globalShortcut.unregister('CommandOrControl+C');
   }
 };
 
