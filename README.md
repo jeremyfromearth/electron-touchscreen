@@ -33,3 +33,7 @@ app.on('ready', ()=> {
   win = new TouchscreenWindow({url: demo_url});
 });
 ```
+
+## Key Commands
+__CMD+K__: Toggles fullscreen
+__CMD+C__: Toggle cursor visibility
