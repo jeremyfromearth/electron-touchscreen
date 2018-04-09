@@ -35,5 +35,5 @@ app.on('ready', ()=> {
 ```
 
 ## Key Commands
-__CMD+K__: Toggles fullscreen
-__CMD+C__: Toggle cursor visibility
+* __CMD+K__: Toggles fullscreen
+* __CMD+C__: Toggle cursor visibility
