@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/future-projects/electron-touchscreen#readme",
   "dependencies": {
-    "electron": "^1.7.9"
+    "electron": "2.0.2"
   }
 }

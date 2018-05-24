@@ -55,11 +55,7 @@ class TouchscreenWindow extends BrowserWindow {
 
     // Inject the script from above
     this.webContents.on('dom-ready', (event)=> {
-      this.webContents.executeJavaScript(scripts); 
-      if(this.first_load && !this.options.showCursor) {
-        this.first_load = false;
-        this.webContents.send('set-cursor-visibility', this.options.showCursor);
-      }
+      this.set_cursor(this.options.showCursor);
     });
 
     // Need to set this if we start not in kiosk mode
@@ -84,17 +80,27 @@ class TouchscreenWindow extends BrowserWindow {
    * Note: Setting the window to kiosk mode automatically hides the cursor
    */
   setKiosk(value) {
+    console.log('setKiosk', value);
     super.setKiosk(value);
     this.set_cursor(!value); 
-    this.setAlwaysOnTop(value, 'floating');
+    this.setVisibleOnAllWorkspaces(value);
+    this.setAlwaysOnTop(value, 'normal');
+    this.focus();
+    this.show();
+    /*
+    if(this.setSimpleFullScreen) {
+      this.setSimpleFullScreen(value);
+    }
+    */
   }
 
   /**
    * Sets whether or not to show the cursor
    */ 
   set_cursor(value) {
+    let css = `body{ cursor: ${value ? 'auto' : 'none'}; }`;
+    this.webContents.insertCSS(css);
     this.options.showCursor = value;
-    this.webContents.send('set-cursor-visibility', this.options.showCursor);
   }
 
   register_shortcuts() {
