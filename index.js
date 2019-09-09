@@ -49,7 +49,7 @@ class TouchscreenWindow extends BrowserWindow {
    */
   constructor(options) {
     super(options = Object.assign(defaults, options));
-    
+
     this.first_load = true;
     this.options = options;
 
@@ -75,28 +75,26 @@ class TouchscreenWindow extends BrowserWindow {
   }
 
   /**
-   * Override 
+   * Override
    * Sets whether or not this window is in kiosk mode
    * Note: Setting the window to kiosk mode automatically hides the cursor
    */
   setKiosk(value) {
-    console.log('setKiosk', value);
     super.setKiosk(value);
-    this.set_cursor(!value); 
+    this.set_cursor(!value);
     this.setVisibleOnAllWorkspaces(value);
     this.setAlwaysOnTop(value, 'normal');
     this.focus();
     this.show();
-    /*
+
     if(this.setSimpleFullScreen) {
       this.setSimpleFullScreen(value);
     }
-    */
   }
 
   /**
    * Sets whether or not to show the cursor
-   */ 
+   */
   set_cursor(value) {
     let css = `body{ cursor: ${value ? 'auto' : 'none'}; }`;
     this.webContents.insertCSS(css);
