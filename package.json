@@ -6,7 +6,7 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/future-projects/electron-touchscreen.git"
+    "url": "git+https://github.com/jeremyfromearth/electron-touchscreen"
   },
   "keywords": [
     "electron",
@@ -18,9 +18,9 @@
   "author": "@jeremyfromearth",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/future-projects/electron-touchscreen/issues"
+    "url": "https://github.com/jeremyfromearth/electron-touchscreen/issues"
   },
-  "homepage": "https://github.com/future-projects/electron-touchscreen#readme",
+  "homepage": "https://github.com/jeremyfromearth/electron-touchscreen#readme",
   "dependencies": {
     "electron": "2.0.2"
   }
