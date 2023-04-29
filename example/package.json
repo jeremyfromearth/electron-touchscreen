@@ -4,8 +4,7 @@
   "description": "An example demonstrating the electron-touchscreen lib",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/electron .",
-    "build-macos": "electron-packager . 'Electron Touchscreen Demo' --out=./build --asar --overwrite"
+    "start": "./node_modules/.bin/electron ."
   },
   "author": "@jeremyfromearth",
   "license": "MIT",

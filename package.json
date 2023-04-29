@@ -1,7 +1,7 @@
 {
   "name": "electron-touchscreen",
-  "version": "0.0.11",
-  "description": "Boilerplate for touchscreen or kiosk apps built with Electron Edit",
+  "version": "1.0.0",
+  "description": "Boilerplate for touchscreen or kiosk apps built with Electron",
   "main": "src/main.js",
   "scripts": {},
   "repository": {
