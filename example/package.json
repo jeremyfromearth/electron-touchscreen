@@ -10,9 +10,6 @@
   "author": "@jeremyfromearth",
   "license": "MIT",
   "dependencies": {
-    "electron": "2.0.2"
-  },
-  "devDependencies": {
-    "electron-packager": "^12.0.1"
+    "electron-touchscreen": "*"
   }
 }

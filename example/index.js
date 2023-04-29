@@ -6,7 +6,7 @@ const url = require('url');
 const electron = require('electron');
 
 // electron-touchscreen
-const TouchscreenWindow = require('../index.js');
+const TouchscreenWindow = require('electron-touchscreen');
 
 // vars
 let win = null;
@@ -16,7 +16,7 @@ const app = electron.app;
 app.on('ready', ()=> {
   const demo_url = url.format({
     pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file', 
+    protocol: 'file',
     slashes: true,
   });
 
