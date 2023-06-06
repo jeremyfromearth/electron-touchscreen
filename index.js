@@ -10,6 +10,7 @@ const path = require('path');
 
 // npm
 const electron = require('electron');
+require('@electron/remote/main').initialize()
 
 // vars
 const BrowserWindow = electron.BrowserWindow;
@@ -80,16 +81,12 @@ class TouchscreenWindow extends BrowserWindow {
    * Note: Setting the window to kiosk mode automatically hides the cursor
    */
   setKiosk(value) {
-    super.setKiosk(value);
+    super.setKiosk(value)
     this.set_cursor(!value);
     this.setVisibleOnAllWorkspaces(value);
     this.setAlwaysOnTop(value, 'normal');
     this.focus();
     this.show();
-
-    if(this.setSimpleFullScreen) {
-      this.setSimpleFullScreen(value);
-    }
   }
 
   /**
@@ -104,7 +101,7 @@ class TouchscreenWindow extends BrowserWindow {
   register_shortcuts() {
     globalShortcut.register('CommandOrControl+K', ()=>{
       if(this.isFocused()) {
-        this.setKiosk(!this.isKiosk())
+        super.setKiosk(!this.isKiosk())
       }
     });
 
