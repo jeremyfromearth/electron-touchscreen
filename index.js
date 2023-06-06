@@ -81,7 +81,7 @@ class TouchscreenWindow extends BrowserWindow {
    * Note: Setting the window to kiosk mode automatically hides the cursor
    */
   setKiosk(value) {
-    super.setKiosk(value)
+    super.setKiosk(value);
     this.set_cursor(!value);
     this.setVisibleOnAllWorkspaces(value);
     this.setAlwaysOnTop(value, 'normal');
@@ -101,7 +101,7 @@ class TouchscreenWindow extends BrowserWindow {
   register_shortcuts() {
     globalShortcut.register('CommandOrControl+K', ()=>{
       if(this.isFocused()) {
-        super.setKiosk(!this.isKiosk())
+        super.setKiosk(!this.isKiosk());
       }
     });
 
